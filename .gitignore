@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Source/CRUDify_UI/obj
+/Source/CRUDify_UI/CRUDify_UI.csproj.user
+/Source/CRUDify_UI/.vs/CRUDify_UI
+/Source/CRUDify_UI/bin/Debug/net6.0-windows
