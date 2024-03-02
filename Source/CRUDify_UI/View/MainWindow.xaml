@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CRUDify_UI"
         mc:Ignorable="d"
+        xmlns:vm="clr-namespace:CRUDify_UI"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
+        <vm:MainPlayersViewModel x:Key="MainPlayerViewModel"/>
         <Style x:Key="OpearationBtnStyle" TargetType="{x:Type Button}">
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Cursor" Value="Hand" />
@@ -31,6 +32,7 @@
                             <Trigger Property="IsMouseCaptured" Value="True">
                                 <Setter TargetName="BOrderOfCRUDBtns" Property="BorderBrush" Value="Transparent"/>
                                 <Setter TargetName="BOrderOfCRUDBtns" Property="BorderThickness" Value="3"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -41,12 +43,26 @@
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Foreground" Value="Red"/>
                 </Trigger>
-
             </Style.Triggers>
         </Style>
 
+        <Style x:Key="DatabaseFiledsHeaderStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style x:Key="DatabaseRecordsStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Focusable" Value="True"/>
+        </Style>
+
     </Window.Resources>
-    <Grid>
+
+    <Grid DataContext="{StaticResource MainPlayerViewModel}" ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -84,5 +100,51 @@
                    BorderBrush="DarkSalmon"
                    BorderThickness="1"
                    />
+
+
+        <Grid x:Name="ShowDataGrid" 
+              Grid.Row="2"
+              ShowGridLines="True">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <UniformGrid x:Name="DatabaseFiledsHeader"
+                         Grid.Row="0" Columns="5"
+                         Margin="10" Visibility="Visible">
+                <TextBlock Text="Full Name" Style="{StaticResource DatabaseFiledsHeaderStyle}" Width="auto"/>
+                <TextBlock Text="Nation" Style="{StaticResource DatabaseFiledsHeaderStyle}"/>
+                <TextBlock Text="Position" Style="{StaticResource DatabaseFiledsHeaderStyle}"/>
+                <TextBlock Text="Club" Style="{StaticResource DatabaseFiledsHeaderStyle}"/>
+                <TextBlock Text="IsActivePlayer" Style="{StaticResource DatabaseFiledsHeaderStyle}"/>
+            </UniformGrid>
+
+            <Border Grid.Row="1" BorderBrush="Red" BorderThickness="10" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <ItemsControl
+                      ItemsSource="{Binding ListOfPlayers}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <UniformGrid Columns="5">
+
+                                <TextBlock Text="{Binding FirstName}" Style="{StaticResource DatabaseRecordsStyle}"/>
+                                <TextBlock Text="{Binding LastName}" Style="{StaticResource DatabaseRecordsStyle}" />
+                                <TextBlock Text="{Binding Age}" Style="{StaticResource DatabaseRecordsStyle}"/>
+                                <TextBlock Text="{Binding IsActive}" Style="{StaticResource DatabaseRecordsStyle}"/>
+                                <TextBlock Text="Last Col"/>
+                            </UniformGrid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <!--<ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate 
+                    </ItemsControl.ItemsPanel>-->
+                </ItemsControl>
+            </Border>
+        </Grid>
+
+
+
+
     </Grid>
 </Window>
