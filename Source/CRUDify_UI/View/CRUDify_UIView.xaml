@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:CRUDify_UI"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
-        <vm:MainPlayersViewModel x:Key="MainPlayerViewModel"/>
+        <vm:CRUDify_UIViewModel x:Key="MainPlayerViewModel"/>
         <Style x:Key="OpearationBtnStyle" TargetType="{x:Type Button}">
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Cursor" Value="Hand" />
