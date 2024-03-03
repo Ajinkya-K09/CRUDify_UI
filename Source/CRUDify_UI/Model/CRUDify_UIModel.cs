@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CRUDify_UI
 {
-    class MainPlayersModule
+    class CRUDify_UIModel
     {
 
         public string FirstName { get; set; }
