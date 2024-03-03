@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using DbConnector;
+using System.Windows;
 
 namespace CRUDify_UI
 {
@@ -10,6 +11,9 @@ namespace CRUDify_UI
         public MainWindow()
         {
             InitializeComponent();
+            DatabaseConnection = new DatabaseConnection();
         }
+
+        public DatabaseConnection DatabaseConnection { get; set; }
     }
 }

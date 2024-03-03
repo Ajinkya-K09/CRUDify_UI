@@ -9,3 +9,5 @@
 /Source/CRUDify_UI/bin/Debug/net6.0-windows
 /Source/CRUDify_UI/.vs/ProjectEvaluation
 *.prot
+/Source/DbConnector/bin/Debug/net6.0
+/Source/DbConnector/obj
