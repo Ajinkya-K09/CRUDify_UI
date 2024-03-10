@@ -20,6 +20,12 @@ namespace CRUDify_UI
 
         public bool IsActive { get; set; }
 
+        public string FullName { get; set; }
 
+        public string Nation { get; set; }
+
+        public string Position { get; set; }
+
+        public string Club { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace DbConnector
 
         public DatabaseConnection()
         {
-            string connectionUri = "connection_string";
+            string connectionUri = string.Empty;
             var settings = MongoClientSettings.FromConnectionString(connectionUri);
 
             // Set the ServerApi field of the settings object to set the version of the Stable API on the client
@@ -26,9 +26,9 @@ namespace DbConnector
             {
                 var result = client.GetDatabase("SQLAuthority").RunCommand<BsonDocument>(new BsonDocument("ping", 1));
                 Console.WriteLine("Pinged your deployment. You successfully connected to MongoDB!");
-                var collection = client.GetDatabase("SQLAuthority").GetCollection<BsonDocument>("footballers");
+                FootballCollection = client.GetDatabase("SQLAuthority").GetCollection<BsonDocument>("footballers");
                 var filterQuery = Builders<BsonDocument>.Filter.Eq("SportsName", "Football");
-                var doc = collection.Find(filterQuery).FirstOrDefault();
+                var doc = FootballCollection.Find(filterQuery).FirstOrDefault();
                 Console.ReadLine();
             }
             catch (Exception ex)
@@ -36,6 +36,8 @@ namespace DbConnector
                 Console.WriteLine(ex);
             }
         }
+
+        public IMongoCollection<BsonDocument> FootballCollection { get; set; }
 
     }
 }

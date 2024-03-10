@@ -11,9 +11,7 @@ namespace CRUDify_UI
         public MainWindow()
         {
             InitializeComponent();
-            //DatabaseConnection = new DatabaseConnection();
         }
 
-        public DatabaseConnection DatabaseConnection { get; set; }
     }
 }

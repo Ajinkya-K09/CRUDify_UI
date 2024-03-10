@@ -58,11 +58,28 @@
             <Setter Property="FontWeight" Value="DemiBold"/>
             <Setter Property="Margin" Value="5"/>
             <Setter Property="Focusable" Value="True"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
 
+        <Style x:Key="DataGridColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="DataGridCelllStyle" TargetType="{x:Type DataGridCell}">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+
+        <Style x:Key="WrapAlignWidthTxtStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Width" Value="auto"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
     </Window.Resources>
 
-    <Grid DataContext="{StaticResource MainPlayerViewModel}" ShowGridLines="True">
+    <Grid DataContext="{StaticResource MainPlayerViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -79,6 +96,7 @@
             <Button x:Name="RetriveBtn"
                     Grid.Column="0"
                     Content="Retrive"
+                    Command="{Binding RetriveButton}"
                     Style="{DynamicResource OpearationBtnStyle}"/>
 
             <Button x:Name="DeleteBtn"
@@ -93,7 +111,6 @@
                     Style="{DynamicResource OpearationBtnStyle}"/>
         </Grid>
 
-        <!--<GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" BorderThickness="1" Background="Transparent"/>-->
         <Separator x:Name="Seperator"
                    Grid.Row="1"
                    Margin="0 20 0 20"
@@ -101,50 +118,67 @@
                    BorderThickness="1"
                    />
 
+        <DataGrid Grid.Row="2" ItemsSource="{Binding ListOfPlayers}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" AlternatingRowBackground="LightGoldenrodYellow">
+            <DataGrid.Columns>
 
-        <Grid x:Name="ShowDataGrid" 
-              Grid.Row="2"
-              ShowGridLines="True">
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <UniformGrid x:Name="DatabaseFiledsHeader"
-                         Grid.Row="0" Columns="5"
-                         Margin="10" Visibility="Visible">
-                <TextBlock Text="Full Name" Style="{StaticResource DatabaseFiledsHeaderStyle}" Width="auto"/>
-                <TextBlock Text="Nation" Style="{StaticResource DatabaseFiledsHeaderStyle}"/>
-                <TextBlock Text="Position" Style="{StaticResource DatabaseFiledsHeaderStyle}"/>
-                <TextBlock Text="Club" Style="{StaticResource DatabaseFiledsHeaderStyle}"/>
-                <TextBlock Text="IsActivePlayer" Style="{StaticResource DatabaseFiledsHeaderStyle}"/>
-            </UniformGrid>
-
-            <Border Grid.Row="1" BorderBrush="Red" BorderThickness="10" ScrollViewer.VerticalScrollBarVisibility="Visible">
-                <ItemsControl
-                      ItemsSource="{Binding ListOfPlayers}">
-                    <ItemsControl.ItemTemplate>
+                <DataGridTemplateColumn x:Name="FullNameCell"
+                                        CanUserResize="False" Width="*" CanUserSort="False" 
+                                        HeaderStyle="{StaticResource DataGridColumnHeaderStyle}" CellStyle="{StaticResource DataGridCelllStyle}">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="FullName"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <UniformGrid Columns="5">
-
-                                <TextBlock Text="{Binding FirstName}" Style="{StaticResource DatabaseRecordsStyle}"/>
-                                <TextBlock Text="{Binding LastName}" Style="{StaticResource DatabaseRecordsStyle}" />
-                                <TextBlock Text="{Binding Age}" Style="{StaticResource DatabaseRecordsStyle}"/>
-                                <TextBlock Text="{Binding IsActive}" Style="{StaticResource DatabaseRecordsStyle}"/>
-                                <TextBlock Text="Last Col"/>
-                            </UniformGrid>
+                            <TextBlock Text="{Binding FullName}" Style="{StaticResource WrapAlignWidthTxtStyle}"/>
                         </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <!--<ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate 
-                    </ItemsControl.ItemsPanel>-->
-                </ItemsControl>
-            </Border>
-        </Grid>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
+                <DataGridTemplateColumn CanUserResize="False" Width="*" CanUserSort="False" HeaderStyle="{StaticResource DataGridColumnHeaderStyle}" CellStyle="{StaticResource DataGridCelllStyle}">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="Nationality"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Nation}" Style="{StaticResource WrapAlignWidthTxtStyle}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
+                <DataGridTemplateColumn CanUserResize="False" Width="*" CanUserSort="False" HeaderStyle="{StaticResource DataGridColumnHeaderStyle}" CellStyle="{StaticResource DataGridCelllStyle}">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="Position"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Position}" Style="{StaticResource WrapAlignWidthTxtStyle}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
+                <DataGridTemplateColumn CanUserResize="False" Width="*" CanUserSort="False" HeaderStyle="{StaticResource DataGridColumnHeaderStyle}" CellStyle="{StaticResource DataGridCelllStyle}">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="Club"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Club}" Style="{StaticResource WrapAlignWidthTxtStyle}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
+                <DataGridTemplateColumn CanUserResize="False" Width="*" CanUserSort="False" HeaderStyle="{StaticResource DataGridColumnHeaderStyle}" CellStyle="{StaticResource DataGridCelllStyle}">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="IsActivePlayer"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding IsActive}" Style="{StaticResource WrapAlignWidthTxtStyle}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
