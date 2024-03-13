@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:CRUDify_UI"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
-        <vm:CRUDify_UIViewModel x:Key="MainPlayerViewModel"/>
+        <vm:CRUDify_UIViewModel x:Key="viewModel"/>
         <Style x:Key="OpearationBtnStyle" TargetType="{x:Type Button}">
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Cursor" Value="Hand" />
@@ -79,7 +79,7 @@
         </Style>
     </Window.Resources>
 
-    <Grid DataContext="{StaticResource MainPlayerViewModel}">
+    <Grid DataContext="{StaticResource viewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -102,6 +102,8 @@
             <Button x:Name="DeleteBtn"
                     Grid.Column="1"
                     Content="Delete"
+                    Command="{Binding DeleteButton}"
+                    CommandParameter="{Binding SelectedRecord}"
                     Style="{DynamicResource OpearationBtnStyle}"/>
 
             <Button x:Name="UpdateBtn"
@@ -118,7 +120,9 @@
                    BorderThickness="1"
                    />
 
-        <DataGrid Grid.Row="2" ItemsSource="{Binding ListOfPlayers}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" AlternatingRowBackground="LightGoldenrodYellow">
+        <DataGrid Grid.Row="2" ItemsSource="{Binding ListOfPlayers}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" 
+                  SelectedItem="{Binding SelectedRecord, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                  AlternatingRowBackground="LightGoldenrodYellow">
             <DataGrid.Columns>
 
                 <DataGridTemplateColumn x:Name="FullNameCell"
