@@ -1,4 +1,5 @@
 ﻿using CRUDify_UI;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +12,7 @@ namespace CRUDify_UI
 {
     class CRUDify_UIModel
     {
+        public BsonObjectId RecordId { get; set; }
 
         public string FirstName { get; set; }
 
