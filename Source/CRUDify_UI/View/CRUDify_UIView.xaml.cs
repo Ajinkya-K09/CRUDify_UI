@@ -1,5 +1,4 @@
-﻿using DbConnector;
-using System.Windows;
+﻿using System.Windows;
 
 namespace CRUDify_UI
 {
@@ -12,6 +11,5 @@ namespace CRUDify_UI
         {
             InitializeComponent();
         }
-
     }
 }

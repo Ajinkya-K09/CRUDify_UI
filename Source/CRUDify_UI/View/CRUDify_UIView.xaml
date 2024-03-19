@@ -110,7 +110,12 @@
                     Grid.Column="2"
                     Content="Update"
                     Focusable="True"
-                    Style="{DynamicResource OpearationBtnStyle}"/>
+                    Command="{Binding UpdateButton}"
+                Style="{DynamicResource OpearationBtnStyle}">
+            </Button>
+            
+            <ContentControl Grid.Column="2" Content="{Binding CurrentUserControl}" />
+            
         </Grid>
 
         <Separator x:Name="Seperator"
@@ -184,5 +189,6 @@
 
             </DataGrid.Columns>
         </DataGrid>
+
     </Grid>
 </Window>
