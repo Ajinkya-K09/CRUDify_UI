@@ -62,7 +62,7 @@
         <Style TargetType="{x:Type TextBox}" x:Key="ErrorTemplateWithToolTip" BasedOn="{StaticResource TextBoxStyle}">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="True">
-                    <Setter Property="ToolTip" Value="{Binding ModelObj.ErrorValidationMessage}"/>
+                    <Setter Property="ToolTip" Value="{Binding ErrorValidationMessage}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
