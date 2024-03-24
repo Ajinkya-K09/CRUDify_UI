@@ -51,135 +51,169 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <Style x:Key="TriggerOpacityForBtn" TargetType="{x:Type Button}" BasedOn="{StaticResource BtnStyle}">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type TextBox}" x:Key="ErrorTemplateWithToolTip" BasedOn="{StaticResource TextBoxStyle}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip" Value="{Binding ModelObj.ErrorValidationMessage}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
+
     </UserControl.Resources>
-    <Grid DataContext="{StaticResource viewModel}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <Separator Grid.Row="1"/>
-
-        <Grid Grid.Row="2">
+    <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto">
+        <Grid DataContext="{StaticResource viewModel}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition MinWidth="200"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+            <Separator Grid.Row="1"/>
 
-            <TextBlock Grid.Row="0" 
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition MinWidth="200"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" 
                 Text="FirstName : " Style="{StaticResource TextLblStyle}"/>
-            <TextBox Grid.Row="0" Grid.Column="1"
-                       Text="{Binding ModelObj.FirstName}"
-                     Style="{StaticResource TextBoxStyle}"/>
+                <TextBox Grid.Row="0" Grid.Column="1"
+                       Text="{Binding FirstName, ValidatesOnDataErrors=True,
+                    UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Style="{StaticResource ErrorTemplateWithToolTip}"/>
 
-            <TextBlock Grid.Row="1"
+                <TextBlock Grid.Row="1"
                        Text="LastName :" 
                        Style="{StaticResource TextLblStyle}"/>
-            <TextBox Grid.Row="1" Grid.Column="1"
-                       Text="{Binding ModelObj.LastName}"
-                     Style="{StaticResource TextBoxStyle}"/>
+                <TextBox Grid.Row="1" Grid.Column="1"
+                       Text="{Binding LastName, ValidatesOnDataErrors=True,
+                    UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Style="{StaticResource ErrorTemplateWithToolTip}"/>
 
-            <TextBlock Grid.Row="2" 
+                <TextBlock Grid.Row="2" 
                        Text="FullName : "
                        Style="{StaticResource TextLblStyle}"/>
-            <TextBox Grid.Row="2" Grid.Column="1"
-                       Text="{Binding ModelObj.FullName}"
-                     Style="{StaticResource TextBoxStyle}"/>
+                <TextBox Grid.Row="2" Grid.Column="1"
+                       Text="{Binding FullName, ValidatesOnDataErrors=True,
+                    UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Style="{StaticResource ErrorTemplateWithToolTip}"/>
 
-            <TextBlock Grid.Row="3"
+                <TextBlock Grid.Row="3"
                        Text="PlayingNation : "
                        Style="{StaticResource TextLblStyle}"/>
-            <TextBox Grid.Row="3" Grid.Column="1"
-                       Text="{Binding ModelObj.PlayingNation}"
-                     Style="{StaticResource TextBoxStyle}"/>
+                <TextBox Grid.Row="3" Grid.Column="1"
+                       Text="{Binding PlayingNation, ValidatesOnDataErrors=True,
+                    UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Style="{StaticResource ErrorTemplateWithToolTip}"/>
 
-            <TextBlock Grid.Row="4"
+                <TextBlock Grid.Row="4"
                        Text="BirthNation : "
                        Style="{StaticResource TextLblStyle}"/>
-            <TextBox Grid.Row="4" Grid.Column="1"
-                       Text="{Binding ModelObj.BirthNation}"
-                     Style="{StaticResource TextBoxStyle}"/>
+                <TextBox Grid.Row="4" Grid.Column="1"
+                       Text="{Binding BirthNation, ValidatesOnDataErrors=True,
+                    UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Style="{StaticResource ErrorTemplateWithToolTip}"/>
 
-            <TextBlock Grid.Row="5"
+                <TextBlock Grid.Row="5"
                        Text="Club : "
                        Style="{StaticResource TextLblStyle}"/>
-            <TextBox Grid.Row="5" Grid.Column="1"
-                       Text="{Binding ModelObj.Club}"
-                     Style="{StaticResource TextBoxStyle}"/>
+                <TextBox Grid.Row="5" Grid.Column="1"
+                       Text="{Binding Club, ValidatesOnDataErrors=True, 
+                    UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Style="{StaticResource ErrorTemplateWithToolTip}"/>
 
-            <TextBlock Grid.Row="6"
+                <TextBlock Grid.Row="6"
                        Text="Position : "
                        Style="{StaticResource TextLblStyle}"/>
-            <TextBox Grid.Row="6" Grid.Column="1"
-                       Text="{Binding ModelObj.Position}"
-                     Style="{StaticResource TextBoxStyle}"/>
+                <TextBox Grid.Row="6" Grid.Column="1"
+                       Text="{Binding Position, ValidatesOnDataErrors=True, 
+                    UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Style="{StaticResource ErrorTemplateWithToolTip}"/>
 
-            <TextBlock Grid.Row="7"
+                <TextBlock Grid.Row="7"
                        Text="WorldCups : "
                        Style="{StaticResource TextLblStyle}"/>
-            <TextBox Grid.Row="7" Grid.Column="1"
-                       Text="{Binding ModelObj.AwardsData.WorldCups}"
-                     Style="{StaticResource TextBoxStyle}"/>
+                <TextBox Grid.Row="7" Grid.Column="1"
+                       Text="{Binding WorldCups, ValidatesOnDataErrors=True,
+                    UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Style="{StaticResource ErrorTemplateWithToolTip}"/>
 
-            <TextBlock Grid.Row="8"
+                <TextBlock Grid.Row="8"
                        Text="ClubCups : "
                        Style="{StaticResource TextLblStyle}"/>
-            <TextBox Grid.Row="8" Grid.Column="1"
-                       Text="{Binding ModelObj.AwardsData.ClubCups}"
-                     Style="{StaticResource TextBoxStyle}"/>
+                <TextBox Grid.Row="8" Grid.Column="1"
+                       Text="{Binding ClubCups, ValidatesOnDataErrors=True, 
+                    UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Style="{StaticResource ErrorTemplateWithToolTip}"/>
 
-            <TextBlock Grid.Row="9"
+                <TextBlock Grid.Row="9"
                        Text="MatchesPlayed : "
                        Style="{StaticResource TextLblStyle}"/>
-            <TextBox Grid.Row="9" Grid.Column="1"
-                       Text="{Binding ModelObj.MatchesPlayed}"
-                     Style="{StaticResource TextBoxStyle}"/>
+                <TextBox Grid.Row="9" Grid.Column="1"
+                       Text="{Binding MatchesPlayed, ValidatesOnDataErrors=True,
+                    UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Style="{StaticResource ErrorTemplateWithToolTip}"/>
 
-            <TextBlock Grid.Row="10" 
+                <TextBlock Grid.Row="10" 
                 Text="IsActivePlayer : "
                        Style="{StaticResource TextLblStyle}"/>
-            <CheckBox Grid.Row="10" Grid.Column="1"
-                      IsChecked="{Binding ModelObj.IsActivePlayer}"
+                <CheckBox Grid.Row="10" Grid.Column="1"
+                      IsChecked="{Binding IsActivePlayer,
+                    UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                       Margin="10 15 10 10"/>
 
-            <UniformGrid Grid.Row="11" Grid.Column="2"
+                <UniformGrid Grid.Row="11" Grid.Column="2"
                           Columns="2" Margin="10">
-                <Button x:Name="ApplyBtn" Grid.Column="0"
+                    <Button x:Name="ApplyBtn" Grid.Column="0"
                             Width="auto"
                         Content="Apply"
-                        Style="{StaticResource BtnStyle}"
+                        Style="{StaticResource TriggerOpacityForBtn}"
                         Command="{Binding ApplyCommand}"
                         IsCancel="True"
+                        IsEnabled="{Binding IsButtonEnabled, 
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         Margin="5"
                         FontSize="16">
-                </Button>
-                <Button x:Name="CancelBtn" Grid.Column="1"
+                    </Button>
+                    <Button x:Name="CancelBtn" Grid.Column="1"
                         Content="Cancel"
                         Width="auto"
                         Margin="5"
                         IsCancel="True"
                         Style="{StaticResource BtnStyle}"
                         FontSize="16"/>
-            </UniformGrid>
+                </UniformGrid>
 
+            </Grid>
         </Grid>
-    </Grid>
+    </ScrollViewer>
+
 
 </UserControl>

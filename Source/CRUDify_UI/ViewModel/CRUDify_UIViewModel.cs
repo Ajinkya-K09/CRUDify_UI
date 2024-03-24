@@ -9,7 +9,6 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -51,11 +50,13 @@ namespace CRUDify_UI
             CurrentUserControl = new UpdateDocumentView();
             IDialogService dialogService = new UserControlContainerDialog();
             dialogService.ShowDialog(CurrentUserControl);
+            HandleRetriveCommand();
         }
 
         private void HandleDeleteCommand(CRUDify_UIModel selectedItem)
         {
             DatabaseConnection.FootballCollection.DeleteOne(Builders<BsonDocument>.Filter.Eq("_id", selectedItem.RecordId));
+            HandleRetriveCommand();
         }
 
         private void HandleRetriveCommand()

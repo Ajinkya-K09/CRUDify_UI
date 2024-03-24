@@ -21,8 +21,8 @@ namespace CRUDify_UI.DatabaseServices
             Position = modelObj.Position;
             AwardsData = new Awards()
             {
-                WorldCups = modelObj.AwardsData.WorldCups,
-                ClubCups = modelObj.AwardsData.ClubCups
+                WorldCups = modelObj.Awards.WorldCups,
+                ClubCups = modelObj.Awards.ClubCups
             };
 
             IsActivePlayer = modelObj.IsActivePlayer;

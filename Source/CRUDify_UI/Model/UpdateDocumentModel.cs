@@ -1,149 +1,55 @@
 ﻿using Prism.Mvvm;
+using System;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows.Controls.Ribbon;
 
 namespace CRUDify_UI.Model
 {
-    public class UpdateDocumentModel : BindableBase
+    public class UpdateDocumentModel
     {
-        private string m_firstName;
-        private string m_lastName;
-        private string m_fullName;
-        private string m_playingNation;
-        private string m_birthNation;
-        private string m_club;
-        private string m_position;
-        private bool m_isActivePlayer;
-        private int m_matchesPlayed;
-
-        public UpdateDocumentModel()
+        public UpdateDocumentModel(string firstName, string lastName, string fullName, string position, string club, string birthNation, string playingNation, int worldCups, int clubCups, bool isactivePlayer, int matchesPlayed)
         {
             UpdateOptionStatus = "CR7 and LM10";
+
             SportsType = "Football";
-            AwardsData = new Awards();
+            Awards = new Awards();
+
+            FirstName = firstName;
+            LastName = lastName;
+            FullName = fullName;
+            PlayingNation = playingNation;
+            BirthNation = birthNation;
+            Club = club;
+            Position = position;
+            Awards.WorldCups = worldCups;
+            Awards.ClubCups = clubCups;
+            MatchesPlayed = matchesPlayed;
+            IsActivePlayer = isactivePlayer;
         }
 
         public string UpdateOptionStatus { get; set; }
 
         public string SportsType { get; private set; }
 
-        public string FirstName
-        {
-            get
-            {
-                return m_firstName;
-            }
+        public string FirstName { get; set; }
 
-            set
-            {
-                m_firstName = value;
-                RaisePropertyChanged(nameof(FirstName));
-            }
-        }
+        public string LastName { get; set; }
 
-        public string LastName
-        {
-            get
-            {
-                return m_lastName;
-            }
-            set
-            {
-                m_lastName = value;
-                RaisePropertyChanged(nameof(LastName));
-            }
-        }
+        public string FullName { get; set; }
 
-        public string FullName
-        {
-            get
-            {
-                return m_fullName;
-            }
-            set
-            {
-                m_fullName = value;
-                RaisePropertyChanged(nameof(FullName));
-            }
-        }
+        public string Club { get; set; }
 
-        public string PlayingNation
-        {
-            get
-            {
-                return m_playingNation;
-            }
-            set
-            {
-                m_playingNation = value;
-                RaisePropertyChanged(nameof(PlayingNation));
-            }
-        }
+        public string Position { get; set; }
 
-        public string BirthNation
-        {
-            get
-            {
-                return m_birthNation;
-            }
-            set
-            {
-                m_birthNation = value;
-                RaisePropertyChanged(nameof(BirthNation));
-            }
-        }
+        public string PlayingNation { get; set; }
 
-        public string Club
-        {
-            get
-            {
-                return m_club;
-            }
-            set
-            {
-                m_club = value;
-                RaisePropertyChanged(nameof(Club));
-            }
-        }
+        public string BirthNation { get; set; }
 
-        public string Position
-        {
-            get
-            {
-                return m_position;
-            }
-            set
-            {
-                m_position = value;
-                RaisePropertyChanged(nameof(Position));
-            }
-        }
+        public Awards Awards { get; set; }
 
-        public Awards AwardsData { get; set; }
+        public bool IsActivePlayer { get; set; }
 
-        public bool IsActivePlayer
-        {
-            get
-            {
-                return m_isActivePlayer;
-            }
-            set
-            {
-                m_isActivePlayer = value;
-                RaisePropertyChanged(nameof(IsActivePlayer));
-            }
-        }
-
-        public int MatchesPlayed
-        {
-            get
-            {
-                return m_matchesPlayed;
-            }
-            set
-            {
-                m_matchesPlayed = value;
-                RaisePropertyChanged(nameof(MatchesPlayed));
-            }
-        }
+        public int MatchesPlayed { get; set; }
     }
 }
