@@ -27,8 +27,6 @@ namespace DbConnector
                 var result = client.GetDatabase("SQLAuthority").RunCommand<BsonDocument>(new BsonDocument("ping", 1));
                 Console.WriteLine("Pinged your deployment. You successfully connected to MongoDB!");
                 FootballCollection = client.GetDatabase("SQLAuthority").GetCollection<BsonDocument>("footballers");
-                var filterQuery = Builders<BsonDocument>.Filter.Eq("SportsName", "Football");
-                var doc = FootballCollection.Find(filterQuery).FirstOrDefault();
                 Console.ReadLine();
             }
             catch (Exception ex)
