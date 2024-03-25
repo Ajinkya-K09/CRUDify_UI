@@ -197,7 +197,7 @@
                         Content="Apply"
                         Style="{StaticResource TriggerOpacityForBtn}"
                         Command="{Binding ApplyCommand}"
-                        IsCancel="True"
+                        Click="CloseWindow_OnClickingApply"
                         IsEnabled="{Binding IsButtonEnabled, 
                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         Margin="5"
