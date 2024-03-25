@@ -10,8 +10,6 @@ namespace CRUDify_UI.Model
     {
         public UpdateDocumentModel(string firstName, string lastName, string fullName, string position, string club, string birthNation, string playingNation, int worldCups, int clubCups, bool isactivePlayer, int matchesPlayed)
         {
-            UpdateOptionStatus = "CR7 and LM10";
-
             SportsType = "Football";
             Awards = new Awards();
 
@@ -27,8 +25,6 @@ namespace CRUDify_UI.Model
             MatchesPlayed = matchesPlayed;
             IsActivePlayer = isactivePlayer;
         }
-
-        public string UpdateOptionStatus { get; set; }
 
         public string SportsType { get; private set; }
 

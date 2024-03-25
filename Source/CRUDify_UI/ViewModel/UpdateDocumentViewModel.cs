@@ -1,12 +1,13 @@
 ﻿using CRUDify_UI.DatabaseServices;
 using CRUDify_UI.Model;
 using DbConnector;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Input;
 
 namespace CRUDify_UI.ViewModel
 {
@@ -30,27 +31,19 @@ namespace CRUDify_UI.ViewModel
         {
             ApplyCommand = new DelegateCommand(ApplyBtnHandler, CanApply);
             WorldCups = ClubCups = MatchesPlayed = "0";
+            UpdateOptionStatus = "Inserting new Document";
+
+            if (CRUDify_UIViewModel.StoredSelectedRecordId != null)
+            {
+                UpdateSelectedRecordToView();
+                UpdateOptionStatus = "Modifying existing document";
+            }
         }
 
-        private bool CanApply()
-        {
-            if (FirstName == null || LastName == null || FullName == null || PlayingNation == null || BirthNation == null
-                || Club == null || Position == null)
-            {
-                return IsButtonEnabled = false;
-            }
-
-            else if (!IsConvertableToInt(WorldCups) || !IsConvertableToInt(ClubCups) || !IsConvertableToInt(MatchesPlayed))
-            {
-                return IsButtonEnabled = false;
-            }
-
-            return IsButtonEnabled = true;
-        }
+        public string UpdateOptionStatus { get; set; }
 
         public DelegateCommand ApplyCommand { get; set; }
 
-        public UpdateDocumentModel ModelObj { get; set; }
         public string FirstName
         {
             get
@@ -259,21 +252,64 @@ namespace CRUDify_UI.ViewModel
             }
         }
 
+        private bool CanApply()
+        {
+            if (FirstName == null || LastName == null || FullName == null || PlayingNation == null || BirthNation == null
+                || Club == null || Position == null)
+            {
+                return IsButtonEnabled = false;
+            }
+
+            else if (!IsConvertableToInt(WorldCups) || !IsConvertableToInt(ClubCups) || !IsConvertableToInt(MatchesPlayed))
+            {
+                return IsButtonEnabled = false;
+            }
+
+            return IsButtonEnabled = true;
+        }
+
         private void ApplyBtnHandler()
         {
             var dbFieldMapperObj = new DatabaseFieldsMapper(StoreModelData());
             var bsonDocConverter = new BsonDocumentConverter();
             var bsonDoc = bsonDocConverter.GenerateBsonDoc(dbFieldMapperObj);
-
             var dbConnection = new DatabaseConnection();
-            dbConnection.FootballCollection.InsertOneAsync(bsonDoc);
+            UpdateDocument(bsonDoc, dbConnection);
+        }
+
+        private void UpdateSelectedRecordToView()
+        {
+            var dbConnection = new DatabaseConnection();
+            var getRecordData = dbConnection.FootballCollection.FindAsync(Builders<BsonDocument>.Filter.Eq("_id", CRUDify_UIViewModel.StoredSelectedRecordId)).Result.FirstOrDefault();
+            FirstName = getRecordData["FirstName"].AsString;
+            LastName = getRecordData["LastName"].AsString;
+            FullName = getRecordData["FullName"].AsString;
+            PlayingNation = getRecordData["PlayingNation"].AsString;
+            BirthNation = getRecordData["BirthNation"].AsString;
+            Club = getRecordData["Club"].AsString;
+            Position = getRecordData["Position"].AsString;
+            WorldCups = getRecordData["Awards"]["WorldCups"].AsInt32.ToString();
+            ClubCups = getRecordData["Awards"]["ClubCups"].AsInt32.ToString();
+            MatchesPlayed = getRecordData["MatchesPlayed"].AsInt32.ToString();
+            IsActivePlayer = getRecordData["IsActivePlayer"].AsBoolean;
+        }
+
+        private void UpdateDocument(BsonDocument bsonDoc, DatabaseConnection dbConnection)
+        {
+            if (CRUDify_UIViewModel.StoredSelectedRecordId == null)
+            {
+                dbConnection.FootballCollection.InsertOneAsync(bsonDoc);
+            }
+            else
+            {
+                dbConnection.FootballCollection.FindOneAndReplaceAsync(Builders<BsonDocument>.Filter.Eq("_id", CRUDify_UIViewModel.StoredSelectedRecordId), bsonDoc).Result.FirstOrDefault();
+            }
         }
 
         private UpdateDocumentModel StoreModelData()
         {
             var modelObj = new UpdateDocumentModel(firstName: FirstName, lastName: LastName, fullName: FullName, position: Position, club: Club, birthNation: BirthNation,
                 playingNation: PlayingNation, worldCups: ParseToInt(WorldCups), clubCups: ParseToInt(ClubCups), isactivePlayer: IsActivePlayer, matchesPlayed: ParseToInt(MatchesPlayed));
-
             return modelObj;
         }
 
