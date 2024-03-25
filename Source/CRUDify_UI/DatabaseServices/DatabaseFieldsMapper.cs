@@ -19,7 +19,7 @@ namespace CRUDify_UI.DatabaseServices
             BirthNation = modelObj.BirthNation;
             Club = modelObj.Club;
             Position = modelObj.Position;
-            AwardsData = new Awards()
+            Awards = new Awards()
             {
                 WorldCups = modelObj.Awards.WorldCups,
                 ClubCups = modelObj.Awards.ClubCups
@@ -45,7 +45,7 @@ namespace CRUDify_UI.DatabaseServices
 
         public string Position { get; set; }
 
-        public Awards AwardsData { get; set; }
+        public Awards Awards { get; set; }
 
         public bool IsActivePlayer { get; set; }
 

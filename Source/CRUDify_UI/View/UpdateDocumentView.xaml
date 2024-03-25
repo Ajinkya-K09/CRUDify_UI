@@ -4,9 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:CRUDify_UI.ViewModel"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
-             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-             xmlns:local="clr-namespace:CRUDify_UI.View"
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="350">
     <UserControl.Resources>
@@ -67,17 +64,21 @@
             </Style.Triggers>
         </Style>
 
-
-
     </UserControl.Resources>
     <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto">
         <Grid DataContext="{StaticResource viewModel}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="15"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+            <Grid Grid.Row="0" Background="LightYellow">
+                <TextBlock
+                       Text="{Binding UpdateOptionStatus}"
+                       Style="{StaticResource TextLblStyle}"/>
+            </Grid>
+           
             <Separator Grid.Row="1"/>
 
             <Grid Grid.Row="2">
