@@ -27,7 +27,7 @@ namespace CRUDify_UI
 
             UpdateButton = new DelegateCommand(UpdateHandler);
 
-            DeleteButton = new DelegateCommand<CRUDify_UIModel>(HandleDeleteCommand);
+            DeleteButton = new DelegateCommand<CRUDify_UIModel>(HandleDeleteCommand, CanDelete);
         }
 
         public ObservableCollection<CRUDify_UIModel> ListOfPlayers { get; private set; }
@@ -59,6 +59,7 @@ namespace CRUDify_UI
                     StoredSelectedRecordId = null;
                 }
                 RaisePropertyChanged(nameof(SelectedRecord));
+                DeleteButton.RaiseCanExecuteChanged();
             }
         }
 
@@ -70,6 +71,16 @@ namespace CRUDify_UI
             IDialogService dialogService = new UserControlContainerDialog();
             dialogService.ShowDialog(currentUserControl);
             HandleRetriveCommand();
+        }
+
+        private bool CanDelete(CRUDify_UIModel selectedItem)
+        {
+            if (selectedItem != null)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void HandleDeleteCommand(CRUDify_UIModel selectedItem)

@@ -46,6 +46,14 @@
             </Style.Triggers>
         </Style>
 
+        <Style x:Key="TriggerOpacityForBtn" TargetType="{x:Type Button}" BasedOn="{StaticResource OpearationBtnStyle}">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <Style x:Key="DatabaseFiledsHeaderStyle" TargetType="{x:Type TextBlock}">
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -104,7 +112,7 @@
                     Content="Delete"
                     Command="{Binding DeleteButton}"
                     CommandParameter="{Binding SelectedRecord}"
-                    Style="{DynamicResource OpearationBtnStyle}"/>
+                    Style="{DynamicResource TriggerOpacityForBtn}"/>
 
             <Button x:Name="UpdateBtn"
                     Grid.Column="2"
