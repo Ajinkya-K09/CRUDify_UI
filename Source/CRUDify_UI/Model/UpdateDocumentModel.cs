@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using CRUDify_UI.Interface;
+using Prism.Mvvm;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Windows.Controls.Ribbon;
 
 namespace CRUDify_UI.Model
 {
-    public class UpdateDocumentModel
+    public class UpdateDocumentModel : IFootballerDocument
     {
         public UpdateDocumentModel(string firstName, string lastName, string fullName, string position, string club, string birthNation, string playingNation, int worldCups, int clubCups, bool isactivePlayer, int matchesPlayed)
         {
@@ -26,7 +27,7 @@ namespace CRUDify_UI.Model
             IsActivePlayer = isactivePlayer;
         }
 
-        public string SportsType { get; private set; }
+        public string SportsType { get; set; }
 
         public string FirstName { get; set; }
 

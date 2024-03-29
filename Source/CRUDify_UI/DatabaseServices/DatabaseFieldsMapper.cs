@@ -1,4 +1,5 @@
-﻿using CRUDify_UI.Model;
+﻿using CRUDify_UI.Interface;
+using CRUDify_UI.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CRUDify_UI.DatabaseServices
 {
-    public class DatabaseFieldsMapper
+    public class DatabaseFieldsMapper : IFootballerDocument
     {
         public DatabaseFieldsMapper(UpdateDocumentModel modelObj)
         {
@@ -29,7 +30,7 @@ namespace CRUDify_UI.DatabaseServices
             MatchesPlayed = modelObj.MatchesPlayed;
         }
 
-        public string SportsType { get; private set; }
+        public string SportsType { get; set; }
 
         public string FirstName { get; set; }
 
