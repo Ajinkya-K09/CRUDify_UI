@@ -3,14 +3,14 @@ using MongoDB.Driver;
 
 namespace DbConnector
 {
-    public class DatabaseConnection
+    public class DatabaseConfiguration
     {
         public static void Main(string[] args)
         {
             //var connection = new DatabaseConnection();
         }
 
-        public DatabaseConnection()
+        public DatabaseConfiguration()
         {
             string connectionUri = string.Empty;
             var settings = MongoClientSettings.FromConnectionString(connectionUri);

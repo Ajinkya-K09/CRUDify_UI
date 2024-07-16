@@ -21,8 +21,6 @@ namespace CRUDify_UI
         {
             ListOfPlayers = new ObservableCollection<CRUDify_UIModel>();
 
-            DatabaseConnection = new DatabaseConnection();
-
             RetriveButton = new DelegateCommand(HandleRetriveCommand);
 
             UpdateButton = new DelegateCommand(UpdateHandler);
@@ -37,8 +35,6 @@ namespace CRUDify_UI
         public DelegateCommand<CRUDify_UIModel> DeleteButton { get; set; }
 
         public DelegateCommand UpdateButton { get; set; }
-
-        public DatabaseConnection DatabaseConnection { get; set; }
 
         public CRUDify_UIModel SelectedRecord
         {
@@ -85,13 +81,13 @@ namespace CRUDify_UI
 
         private void HandleDeleteCommand(CRUDify_UIModel selectedItem)
         {
-            DatabaseConnection.FootballCollection.DeleteOne(Builders<BsonDocument>.Filter.Eq("_id", selectedItem.RecordId));
+            DatabaseConnector.DbConnectorInstance.FootballCollection.DeleteOne(Builders<BsonDocument>.Filter.Eq("_id", selectedItem.RecordId));
             HandleRetriveCommand();
         }
 
         private void HandleRetriveCommand()
         {
-            var documentListInCollection = DatabaseConnection.FootballCollection.Aggregate().ToListAsync().Result;
+            var documentListInCollection = DatabaseConnector.DbConnectorInstance.FootballCollection.Aggregate().ToListAsync().Result;
 
             ListOfPlayers.Clear();
 
