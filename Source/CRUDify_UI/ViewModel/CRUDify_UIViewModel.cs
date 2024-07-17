@@ -9,14 +9,15 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Controls;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace CRUDify_UI
 {
-    class CRUDify_UIViewModel : BindableBase
+    internal class CRUDify_UIViewModel : BindableBase
     {
         private CRUDify_UIModel m_currentSelectedRecord;
+
         public CRUDify_UIViewModel()
         {
             ListOfPlayers = new ObservableCollection<CRUDify_UIModel>();
@@ -85,16 +86,17 @@ namespace CRUDify_UI
             HandleRetriveCommand();
         }
 
-        private void HandleRetriveCommand()
+        private async void HandleRetriveCommand()
         {
-            var documentListInCollection = DatabaseConnector.DbConnectorInstance.FootballCollection.Aggregate().ToListAsync().Result;
+            var aggregate = DatabaseConnector.DbConnectorInstance.FootballCollection.Aggregate();
+            var documentListInCollection = await aggregate.ToListAsync();
 
             ListOfPlayers.Clear();
 
-            AddBsonDocDataToView(documentListInCollection);
+            await AddBsonDocDataToView(documentListInCollection);
         }
 
-        private void AddBsonDocDataToView(List<BsonDocument> documentListInCollection)
+        private async Task AddBsonDocDataToView(List<BsonDocument> documentListInCollection)
         {
             foreach (var item in documentListInCollection)
             {
@@ -107,6 +109,5 @@ namespace CRUDify_UI
                 ListOfPlayers.Add(model);
             }
         }
-
     }
 }

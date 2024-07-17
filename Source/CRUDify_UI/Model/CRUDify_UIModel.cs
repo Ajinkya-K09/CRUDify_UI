@@ -1,16 +1,8 @@
-﻿using CRUDify_UI;
-using MongoDB.Bson;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MongoDB.Bson;
 
 namespace CRUDify_UI
 {
-    class CRUDify_UIModel
+    internal class CRUDify_UIModel
     {
         public BsonObjectId RecordId { get; set; }
 

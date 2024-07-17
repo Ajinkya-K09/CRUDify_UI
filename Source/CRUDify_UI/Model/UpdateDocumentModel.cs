@@ -1,10 +1,4 @@
-﻿using Prism.Mvvm;
-using System;
-using System.ComponentModel;
-using System.Linq;
-using System.Windows.Controls.Ribbon;
-
-namespace CRUDify_UI.Model
+﻿namespace CRUDify_UI.Model
 {
     public class UpdateDocumentModel
     {

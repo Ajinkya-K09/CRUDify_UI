@@ -1,5 +1,4 @@
 ﻿using CRUDify_UI.DatabaseServices;
-using CRUDify_UI.Interface;
 using CRUDify_UI.Model;
 using DbConnector;
 using MongoDB.Bson;
@@ -259,7 +258,6 @@ namespace CRUDify_UI.ViewModel
             {
                 return IsButtonEnabled = false;
             }
-
             else if (!IsConvertableToInt(WorldCups) || !IsConvertableToInt(ClubCups) || !IsConvertableToInt(MatchesPlayed))
             {
                 return IsButtonEnabled = false;

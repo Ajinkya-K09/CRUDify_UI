@@ -20,5 +20,5 @@ namespace CRUDify_UI.View
             IDialogService dialogService = new UserControlContainerDialog();
             dialogService.CloseDialog(this);
         }
-    }   
+    }
 }
