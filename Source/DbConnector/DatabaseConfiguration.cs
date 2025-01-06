@@ -3,16 +3,16 @@ using MongoDB.Driver;
 
 namespace DbConnector
 {
-    public class DatabaseConnection
+    public class DatabaseConfiguration
     {
         public static void Main(string[] args)
         {
             //var connection = new DatabaseConnection();
         }
 
-        public DatabaseConnection()
+        public DatabaseConfiguration()
         {
-            string connectionUri = string.Empty;
+            string connectionUri = "mongodb+srv://ajinkya:root@sqlauthority.5m5moks.mongodb.net/?retryWrites=true&w=majority&appName=SQLAuthority";
             var settings = MongoClientSettings.FromConnectionString(connectionUri);
 
             // Set the ServerApi field of the settings object to set the version of the Stable API on the client
@@ -36,6 +36,5 @@ namespace DbConnector
         }
 
         public IMongoCollection<BsonDocument> FootballCollection { get; set; }
-
     }
 }

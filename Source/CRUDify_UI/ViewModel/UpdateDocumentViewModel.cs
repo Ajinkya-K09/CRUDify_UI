@@ -1,5 +1,4 @@
 ﻿using CRUDify_UI.DatabaseServices;
-using CRUDify_UI.Interface;
 using CRUDify_UI.Model;
 using DbConnector;
 using MongoDB.Bson;
@@ -259,7 +258,6 @@ namespace CRUDify_UI.ViewModel
             {
                 return IsButtonEnabled = false;
             }
-
             else if (!IsConvertableToInt(WorldCups) || !IsConvertableToInt(ClubCups) || !IsConvertableToInt(MatchesPlayed))
             {
                 return IsButtonEnabled = false;
@@ -273,14 +271,12 @@ namespace CRUDify_UI.ViewModel
             var dbFieldMapperObj = new DatabaseFieldsMapper(StoreModelData());
             var bsonDocConverter = new BsonDocumentConverter();
             var bsonDoc = bsonDocConverter.GenerateBsonDoc(dbFieldMapperObj);
-            var dbConnection = new DatabaseConnection();
-            UpdateDocument(bsonDoc, dbConnection);
+            UpdateDocument(bsonDoc, DatabaseConnector.DbConnectorInstance);
         }
 
         private void UpdateSelectedRecordToView()
         {
-            var dbConnection = new DatabaseConnection();
-            var getRecordData = dbConnection.FootballCollection.FindAsync(Builders<BsonDocument>.Filter.Eq("_id", CRUDify_UIViewModel.StoredSelectedRecordId)).Result.FirstOrDefault();
+            var getRecordData = DatabaseConnector.DbConnectorInstance.FootballCollection.FindAsync(Builders<BsonDocument>.Filter.Eq("_id", CRUDify_UIViewModel.StoredSelectedRecordId)).Result.FirstOrDefault();
             FirstName = getRecordData["FirstName"].AsString;
             LastName = getRecordData["LastName"].AsString;
             FullName = getRecordData["FullName"].AsString;
@@ -294,7 +290,7 @@ namespace CRUDify_UI.ViewModel
             IsActivePlayer = getRecordData["IsActivePlayer"].AsBoolean;
         }
 
-        private void UpdateDocument(BsonDocument bsonDoc, DatabaseConnection dbConnection)
+        private void UpdateDocument(BsonDocument bsonDoc, DatabaseConfiguration dbConnection)
         {
             if (CRUDify_UIViewModel.StoredSelectedRecordId == null)
             {

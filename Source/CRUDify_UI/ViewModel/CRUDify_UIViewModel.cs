@@ -9,19 +9,18 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Controls;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace CRUDify_UI
 {
-    class CRUDify_UIViewModel : BindableBase
+    internal class CRUDify_UIViewModel : BindableBase
     {
         private CRUDify_UIModel m_currentSelectedRecord;
+
         public CRUDify_UIViewModel()
         {
             ListOfPlayers = new ObservableCollection<CRUDify_UIModel>();
-
-            DatabaseConnection = new DatabaseConnection();
 
             RetriveButton = new DelegateCommand(HandleRetriveCommand);
 
@@ -37,8 +36,6 @@ namespace CRUDify_UI
         public DelegateCommand<CRUDify_UIModel> DeleteButton { get; set; }
 
         public DelegateCommand UpdateButton { get; set; }
-
-        public DatabaseConnection DatabaseConnection { get; set; }
 
         public CRUDify_UIModel SelectedRecord
         {
@@ -85,20 +82,21 @@ namespace CRUDify_UI
 
         private void HandleDeleteCommand(CRUDify_UIModel selectedItem)
         {
-            DatabaseConnection.FootballCollection.DeleteOne(Builders<BsonDocument>.Filter.Eq("_id", selectedItem.RecordId));
+            DatabaseConnector.DbConnectorInstance.FootballCollection.DeleteOne(Builders<BsonDocument>.Filter.Eq("_id", selectedItem.RecordId));
             HandleRetriveCommand();
         }
 
-        private void HandleRetriveCommand()
+        private async void HandleRetriveCommand()
         {
-            var documentListInCollection = DatabaseConnection.FootballCollection.Aggregate().ToListAsync().Result;
+            var aggregate = DatabaseConnector.DbConnectorInstance.FootballCollection.Aggregate();
+            var documentListInCollection = await aggregate.ToListAsync();
 
             ListOfPlayers.Clear();
 
-            AddBsonDocDataToView(documentListInCollection);
+            await AddBsonDocDataToView(documentListInCollection);
         }
 
-        private void AddBsonDocDataToView(List<BsonDocument> documentListInCollection)
+        private async Task AddBsonDocDataToView(List<BsonDocument> documentListInCollection)
         {
             foreach (var item in documentListInCollection)
             {
@@ -111,6 +109,5 @@ namespace CRUDify_UI
                 ListOfPlayers.Add(model);
             }
         }
-
     }
 }

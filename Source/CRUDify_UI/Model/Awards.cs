@@ -1,9 +1,4 @@
 ﻿using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CRUDify_UI.Model
 {
@@ -37,6 +32,5 @@ namespace CRUDify_UI.Model
                 RaisePropertyChanged(nameof(ClubCups));
             }
         }
-
     }
 }
