@@ -1,0 +1,198 @@
+﻿<Window x:Class="CRUDify_UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:CRUDify_UI"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <vm:CRUDify_UIViewModel x:Key="viewModel" />
+        <Style x:Key="OpearationBtnStyle" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="MinHeight" Value="40" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="IsHitTestVisible" Value="True" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="OverridesDefaultStyle" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="BOrderOfCRUDBtns"
+                                BorderThickness="1"
+                        Padding="4,2"
+                        BorderBrush="Black"
+                        CornerRadius="7"
+                                Background="BlanchedAlmond">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseCaptured" Value="True">
+                                <Setter TargetName="BOrderOfCRUDBtns" Property="BorderBrush" Value="Transparent" />
+                                <Setter TargetName="BOrderOfCRUDBtns" Property="BorderThickness" Value="3" />
+                                <Setter Property="FontWeight" Value="Bold" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="TriggerOpacityForBtn" TargetType="{x:Type Button}" BasedOn="{StaticResource OpearationBtnStyle}">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DatabaseFiledsHeaderStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+
+        <Style x:Key="DatabaseRecordsStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="DemiBold" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Focusable" Value="True" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="DataGridColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="DataGridCelllStyle" TargetType="{x:Type DataGridCell}">
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+
+        <Style x:Key="WrapAlignWidthTxtStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Width" Value="auto" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+    </Window.Resources>
+
+    <Grid DataContext="{StaticResource viewModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="RetriveBtn"
+                    Grid.Column="0"
+                    Content="Retrive"
+                    Command="{Binding RetriveButton}"
+                    Style="{DynamicResource OpearationBtnStyle}" />
+
+            <Button x:Name="DeleteBtn"
+                    Grid.Column="1"
+                    Content="Delete"
+                    Command="{Binding DeleteButton}"
+                    CommandParameter="{Binding SelectedRecord}"
+                    Style="{DynamicResource TriggerOpacityForBtn}" />
+
+            <Button x:Name="UpdateBtn"
+                    Grid.Column="2"
+                    Content="Update"
+                    Focusable="True"
+                    Command="{Binding UpdateButton}"
+                Style="{DynamicResource OpearationBtnStyle}">
+            </Button>
+
+            <ContentControl Grid.Column="2" Content="{Binding CurrentUserControl}" />
+        </Grid>
+
+        <Separator x:Name="Seperator"
+                   Grid.Row="1"
+                   Margin="0 20 0 20"
+                   BorderBrush="DarkSalmon"
+                   BorderThickness="1" />
+
+        <DataGrid Grid.Row="2" ItemsSource="{Binding ListOfPlayers}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
+                  SelectedItem="{Binding SelectedRecord, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                  AlternatingRowBackground="LightGoldenrodYellow">
+            <DataGrid.Columns>
+
+                <DataGridTemplateColumn x:Name="FullNameCell"
+                                        CanUserResize="False" Width="*" CanUserSort="False"
+                                        HeaderStyle="{StaticResource DataGridColumnHeaderStyle}" CellStyle="{StaticResource DataGridCelllStyle}">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="FullName" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding FullName}" Style="{StaticResource WrapAlignWidthTxtStyle}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn CanUserResize="False" Width="*" CanUserSort="False" HeaderStyle="{StaticResource DataGridColumnHeaderStyle}" CellStyle="{StaticResource DataGridCelllStyle}">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="Nationality" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Nation}" Style="{StaticResource WrapAlignWidthTxtStyle}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn CanUserResize="False" Width="*" CanUserSort="False" HeaderStyle="{StaticResource DataGridColumnHeaderStyle}" CellStyle="{StaticResource DataGridCelllStyle}">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="Position" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Position}" Style="{StaticResource WrapAlignWidthTxtStyle}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn CanUserResize="False" Width="*" CanUserSort="False" HeaderStyle="{StaticResource DataGridColumnHeaderStyle}" CellStyle="{StaticResource DataGridCelllStyle}">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="Club" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Club}" Style="{StaticResource WrapAlignWidthTxtStyle}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn CanUserResize="False" Width="*" CanUserSort="False" HeaderStyle="{StaticResource DataGridColumnHeaderStyle}" CellStyle="{StaticResource DataGridCelllStyle}">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="IsActivePlayer" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding IsActive}" Style="{StaticResource WrapAlignWidthTxtStyle}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

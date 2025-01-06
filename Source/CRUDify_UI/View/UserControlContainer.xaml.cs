@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CRUDify_UI
+namespace CRUDify_UI.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for UserControlContainer.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class UserControlContainer : Window
     {
-        public MainWindow()
+        public UserControlContainer()
         {
             InitializeComponent();
         }

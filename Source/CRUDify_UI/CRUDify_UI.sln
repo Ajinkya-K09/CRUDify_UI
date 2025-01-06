@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRUDify_UI", "CRUDify_UI.csproj", "{39655B6B-1692-4D4D-A6DE-DCEF0F25E109}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRUDify_UI", "CRUDify_UI.csproj", "{39655B6B-1692-4D4D-A6DE-DCEF0F25E109}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbConnector", "..\DbConnector\DbConnector.csproj", "{FAD69C07-B192-4232-8D70-A8442C18C0A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{39655B6B-1692-4D4D-A6DE-DCEF0F25E109}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39655B6B-1692-4D4D-A6DE-DCEF0F25E109}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39655B6B-1692-4D4D-A6DE-DCEF0F25E109}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAD69C07-B192-4232-8D70-A8442C18C0A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAD69C07-B192-4232-8D70-A8442C18C0A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAD69C07-B192-4232-8D70-A8442C18C0A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAD69C07-B192-4232-8D70-A8442C18C0A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
